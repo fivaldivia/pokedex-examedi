@@ -1,14 +1,20 @@
 import { FC, useEffect, useState } from 'react';
+import '../Types.css';
 
 const HomePage: FC = () => {
   const [pokemonArray, setPokemonArray] = useState<any[]>([]);
   const [pokemonTypes, setPokemonTypes] = useState<any[]>([]);
   const [pageNumber, setPageNumber] = useState(0);
+  const [pagesVisited, setpagesVisited] = useState(12);
   const pokemonsPerPage = 12;
-  const pagesVisited = pageNumber * pokemonsPerPage;
-
   const displayMorePokemons = () => {
-    setPageNumber(pageNumber + 1);
+    if(pageNumber<75){
+      setPageNumber(pageNumber + 1);
+      setpagesVisited(pageNumber * pokemonsPerPage);
+    }else if(pageNumber == 75){
+      setPageNumber(pageNumber + 1);
+      setpagesVisited((pageNumber * pokemonsPerPage) - 7);
+    }
   };
 
   const displayPokemons = pokemonArray
@@ -49,34 +55,41 @@ const HomePage: FC = () => {
               <p className="card-number">N.° {id + 1}</p>
             )}
             <h5 className="card-name">{pokemon['name']}</h5>
-            <div className="card-type">
-                <span>Planta</span>
-              </div>
+            {pokemonTypes.length > 0
+              ? pokemonTypes[id].map((types: any, idx: number) => (
+                  <div className="card-type">
+                    <span data-status={pokemonTypes[id][idx].type.name}>{pokemonTypes[id][idx].type.name}</span>
+                  </div>
+                ))
+              : null}
           </div>
         </div>
       );
     });
   const getPokemonsTypes = async () => {
-    pokemonArray.forEach(async (pokemon: any) => {
-      try {
-        const response = await fetch(
-          `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
-        );
-        if (!response.ok) {
-          const error = await response.text();
-          throw new Error(error);
+    await Promise.all(
+      pokemonArray.map(async (pokemon: any) => {
+        try {
+          const response = await fetch(
+            `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
+          );
+          if (!response.ok) {
+            const error = await response.text();
+            throw new Error(error);
+          }
+          const data = await response.json();
+          setPokemonTypes((currentList: any) => [...currentList, data.types]);
+          await pokemonTypes.sort((a, b) => a.id - b.id);
+        } catch (error) {
+          console.log(error);
         }
-        const data = await response.json();
-        setPokemonTypes((currentList: any) => [...currentList, data.types]);
-        await pokemonTypes.sort((a, b) => a.id - b.id);
-      } catch (error) {
-        console.log(error);
-      }
-    });
+      })
+    );
   };
+  
   useEffect(() => {
     getPokemonsTypes();
-  }, []);
+  }, [pokemonArray, setPokemonArray]);
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`)
@@ -87,7 +100,7 @@ const HomePage: FC = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [setPokemonArray]);
+  }, []);
 
   return (
     <div className="App">
