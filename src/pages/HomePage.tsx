@@ -6,7 +6,6 @@ const HomePage: FC = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const pokemonsPerPage = 12;
   const pagesVisited = pageNumber * pokemonsPerPage;
-
   const displayMorePokemons = () => {
     setPageNumber(pageNumber + 1);
   };
