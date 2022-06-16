@@ -66,21 +66,27 @@
 .card-name:first-letter {
   text-transform: uppercase;
 }
+
 .card-type span {
   font-family: 'Flexo-Medium', arial, sans-serif;
+  padding: 1%;
   border-radius: 3px;
   line-height: 18px;
   max-width: 110px;
   margin: 0 1.5% 0 0;
-  width: 38.4%;
+  width: 35%;
   float: left;
   text-transform: none;
-  font-size: 80%;
+  font-size: 90%;
   text-align: center;
   background: linear-gradient(180deg, #9bcc50 50%, #9bcc50 50%);
   background-color: #9bcc50;
   color: #212121;
 }
+.card-type span:first-letter {
+  text-transform: uppercase;
+}
+
 .button-load-more-container {
   text-align: center;
 }

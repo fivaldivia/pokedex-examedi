@@ -49,30 +49,34 @@ const HomePage: FC = () => {
               <p className="card-number">N.° {id + 1}</p>
             )}
             <h5 className="card-name">{pokemon['name']}</h5>
-            <div className="card-type">
-                <span>Planta</span>
+            {pokemonTypes[id].map((types:any, idx:number) => (
+              <div className="card-type">
+                <span>{pokemonTypes[id][idx].type.name}</span>
               </div>
+            ))}
           </div>
         </div>
       );
     });
   const getPokemonsTypes = async () => {
-    pokemonArray.forEach(async (pokemon: any) => {
-      try {
-        const response = await fetch(
-          `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
-        );
-        if (!response.ok) {
-          const error = await response.text();
-          throw new Error(error);
+    await Promise.all(
+      pokemonArray.map(async (pokemon: any) => {
+        try {
+          const response = await fetch(
+            `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
+          );
+          if (!response.ok) {
+            const error = await response.text();
+            throw new Error(error);
+          }
+          const data = await response.json();
+          setPokemonTypes((currentList: any) => [...currentList, data.types]);
+          await pokemonTypes.sort((a, b) => a.id - b.id);
+        } catch (error) {
+          console.log(error);
         }
-        const data = await response.json();
-        setPokemonTypes((currentList: any) => [...currentList, data.types]);
-        await pokemonTypes.sort((a, b) => a.id - b.id);
-      } catch (error) {
-        console.log(error);
-      }
-    });
+      })
+    );
   };
   useEffect(() => {
     getPokemonsTypes();
