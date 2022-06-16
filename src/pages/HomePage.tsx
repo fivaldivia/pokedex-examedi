@@ -1,4 +1,4 @@
-import { FC, useEffect, useCallback, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import '../Types.css';
 
 const HomePage: FC = () => {
@@ -7,7 +7,6 @@ const HomePage: FC = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const [pagesVisited, setpagesVisited] = useState(12);
   const pokemonsPerPage = 12;
-  // const pagesVisited = pageNumber * pokemonsPerPage;
   const displayMorePokemons = () => {
     if(pageNumber<75){
       setPageNumber(pageNumber + 1);
@@ -87,6 +86,7 @@ const HomePage: FC = () => {
       })
     );
   };
+  
   useEffect(() => {
     getPokemonsTypes();
   }, [pokemonArray, setPokemonArray]);
