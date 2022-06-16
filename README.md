@@ -1,2 +1,6 @@
 # pokedex-examedi
-Entrevista en casa
+Entrevista en casa: Pokédex
+
+## To run it locally
+### `npm install`
+### `npm start`

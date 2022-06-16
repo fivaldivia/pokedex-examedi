@@ -1,0 +1,102 @@
+.App {
+  background-color: #ffffff;
+  background-image: url('https://assets.pokemon.com/static2/_ui/img/chrome/container_bg.png');
+}
+.App-title {
+  margin-left: 14%;
+  margin-right: 14%;
+  background-color: #ffffff;
+  padding: 0.5rem;
+}
+.App-title h1 {
+  color: #919191;
+  font-weight: lighter;
+  cursor: default;
+  font-size: 187.5%;
+  line-height: 125%;
+  text-transform: none;
+  font-family: 'Flexo-Regular', arial, sans-serif;
+  padding-left: 2%;
+}
+.App-cards-list {
+  display: grid;
+  margin-left: 14%;
+  margin-right: 14%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 0.5rem;
+  background: #ffffff;
+  padding-left: 1.2%;
+  padding-right: 1.2%;
+}
+.App-card {
+  border-radius: 4px;
+  padding: 0.3rem;
+  margin-bottom: 10%;
+}
+.card-header {
+  background: #f2f2f2;
+  display: block;
+  position: relative;
+  border-radius: 5px;
+  width: 100%;
+  padding-top: 100%;
+}
+.card-header img {
+  float: left;
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+.card-body {
+  padding-left: 4%;
+}
+.card-number {
+  font-family: 'Flexo-Bold', arial, sans-serif;
+  color: #919191;
+  padding-top: 2px;
+  font-weight: bolder;
+}
+.card-name {
+  font-family: 'Flexo-Demi', arial, sans-serif;
+  color: #313131;
+  font-size: 145%;
+  margin-bottom: 5px;
+}
+.card-name:first-letter {
+  text-transform: uppercase;
+}
+.card-type span {
+  font-family: 'Flexo-Medium', arial, sans-serif;
+  border-radius: 3px;
+  line-height: 18px;
+  max-width: 110px;
+  margin: 0 1.5% 0 0;
+  width: 38.4%;
+  float: left;
+  text-transform: none;
+  font-size: 80%;
+  text-align: center;
+  background: linear-gradient(180deg, #9bcc50 50%, #9bcc50 50%);
+  background-color: #9bcc50;
+  color: #212121;
+}
+.button-load-more-container {
+  text-align: center;
+}
+.button-load-more {
+  background-color: #30a7d7;
+  font-weight: bolder;
+  color: white;
+  font-size: 20px;
+  padding: 15px 30px;
+  border-radius: 5px;
+  margin: 10px 0px;
+  cursor: pointer;
+  border: none;
+  outline:none;
+  font-family: "Flexo-Demi",arial,sans-serif;
+}
+.button-load-more-container :hover {
+  background-color: #07668c;
+}
