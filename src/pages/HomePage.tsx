@@ -5,10 +5,17 @@ const HomePage: FC = () => {
   const [pokemonArray, setPokemonArray] = useState<any[]>([]);
   const [pokemonTypes, setPokemonTypes] = useState<any[]>([]);
   const [pageNumber, setPageNumber] = useState(0);
+  const [pagesVisited, setpagesVisited] = useState(12);
   const pokemonsPerPage = 12;
-  const pagesVisited = pageNumber * pokemonsPerPage;
+  // const pagesVisited = pageNumber * pokemonsPerPage;
   const displayMorePokemons = () => {
-    setPageNumber(pageNumber + 1);
+    if(pageNumber<75){
+      setPageNumber(pageNumber + 1);
+      setpagesVisited(pageNumber * pokemonsPerPage);
+    }else if(pageNumber == 75){
+      setPageNumber(pageNumber + 1);
+      setpagesVisited((pageNumber * pokemonsPerPage) - 7);
+    }
   };
 
   const displayPokemons = pokemonArray
@@ -52,7 +59,7 @@ const HomePage: FC = () => {
             {pokemonTypes.length > 0
               ? pokemonTypes[id].map((types: any, idx: number) => (
                   <div className="card-type">
-                    <span>{pokemonTypes[id][idx].type.name}</span>
+                    <span data-status={pokemonTypes[id][idx].type.name}>{pokemonTypes[id][idx].type.name}</span>
                   </div>
                 ))
               : null}
@@ -81,7 +88,6 @@ const HomePage: FC = () => {
     );
   };
   useEffect(() => {
-    console.log("ENTRANDO");
     getPokemonsTypes();
   }, [pokemonArray, setPokemonArray]);
 
@@ -95,24 +101,6 @@ const HomePage: FC = () => {
         console.log(err);
       });
   }, []);
-
-  // useEffect(() => {
-  //   fetch(`https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       var promise = new Promise((resolve: any) => {
-  //         setPokemonArray(data.results);
-  //         resolve();
-  //       });
-  //       promise.then(() => {
-  //         getPokemonsTypes();
-  //       });
-  //       // setPokemonArray(data.results);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [setPokemonArray]);
 
   return (
     <div className="App">
