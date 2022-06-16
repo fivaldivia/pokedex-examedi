@@ -1,7 +1,9 @@
 import { FC, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../Types.css';
 
 const HomePage: FC = () => {
+  const navigate = useNavigate();
   const [pokemonArray, setPokemonArray] = useState<any[]>([]);
   const [pokemonTypes, setPokemonTypes] = useState<any[]>([]);
   const [pageNumber, setPageNumber] = useState(0);
@@ -16,12 +18,18 @@ const HomePage: FC = () => {
       setpagesVisited((pageNumber * pokemonsPerPage) - 7);
     }
   };
+  const goToDetails = (id:number)=>{
+    navigate('/pokemon/detail', {
+      state: { id: id },
+    });
+  }
 
+    
   const displayPokemons = pokemonArray
     .slice(0, pagesVisited + pokemonsPerPage)
     .map((pokemon, id) => {
       return (
-        <div className="App-card">
+        <div className="App-card" onClick={() => goToDetails(id)}>
           <header className="card-header">
             {id + 1 < 10 ? (
               <img
@@ -55,13 +63,13 @@ const HomePage: FC = () => {
               <p className="card-number">N.° {id + 1}</p>
             )}
             <h5 className="card-name">{pokemon['name']}</h5>
-            {pokemonTypes.length > 0
+            {/* {pokemonTypes.length > 0
               ? pokemonTypes[id].map((types: any, idx: number) => (
                   <div className="card-type">
                     <span data-status={pokemonTypes[id][idx].type.name}>{pokemonTypes[id][idx].type.name}</span>
                   </div>
                 ))
-              : null}
+              : null} */}
           </div>
         </div>
       );

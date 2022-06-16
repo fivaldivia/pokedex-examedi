@@ -33,6 +33,7 @@
   border-radius: 4px;
   padding: 0.3rem;
   margin-bottom: 10%;
+  cursor: pointer;
 }
 .card-header {
   background: #f2f2f2;

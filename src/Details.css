@@ -1,0 +1,29 @@
+.pokemon-title {
+  padding-top: 90px;
+  background: #fff;
+  padding: 0;
+  position: relative;
+  max-width: 1280px;
+  width: 100%;
+}
+.pokemon-title-container-left {
+  float: left;
+  margin-right: 0;
+  background: rgb(159, 157, 157);
+}
+.pokemon-title-container-right {
+  float: right;
+  margin-right: 0;
+  background: rgb(159, 157, 157);
+}
+.pokemon-title-container-center {
+    bottom: 0;
+    float: left;
+    margin-right: -100%;
+    width: 58.0325%;
+    margin-left: 20.2%;
+    background-color: #fff;
+    position: absolute;
+    height: 51px;
+    font-size: 100%;
+  }
