@@ -1,5 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import '../Types.css';
+import getPokemonsTypes from '../utils/getPokemonsTypes';
+import PokemonCard from '../components/PokemonCard';
 
 const HomePage: FC = () => {
   const [pokemonArray, setPokemonArray] = useState<any[]>([]);
@@ -66,29 +68,9 @@ const HomePage: FC = () => {
         </div>
       );
     });
-  const getPokemonsTypes = async () => {
-    await Promise.all(
-      pokemonArray.map(async (pokemon: any) => {
-        try {
-          const response = await fetch(
-            `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
-          );
-          if (!response.ok) {
-            const error = await response.text();
-            throw new Error(error);
-          }
-          const data = await response.json();
-          setPokemonTypes((currentList: any) => [...currentList, data.types]);
-          await pokemonTypes.sort((a, b) => a.id - b.id);
-        } catch (error) {
-          console.log(error);
-        }
-      })
-    );
-  };
   
   useEffect(() => {
-    getPokemonsTypes();
+    getPokemonsTypes(pokemonArray, pokemonTypes, setPokemonTypes);
   }, [pokemonArray, setPokemonArray]);
 
   useEffect(() => {
