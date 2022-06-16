@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from 'react';
-// import '../Types.css';
+import { FC, useEffect, useCallback, useState } from 'react';
+import '../Types.css';
 
 const HomePage: FC = () => {
   const [pokemonArray, setPokemonArray] = useState<any[]>([]);
@@ -49,11 +49,13 @@ const HomePage: FC = () => {
               <p className="card-number">N.° {id + 1}</p>
             )}
             <h5 className="card-name">{pokemon['name']}</h5>
-            {pokemonTypes[id].map((types: any, idx: number) => (
-              <div className="card-type">
-                <span>{pokemonTypes[id][idx].type.name}</span>
-              </div>
-            ))}
+            {pokemonTypes.length > 0
+              ? pokemonTypes[id].map((types: any, idx: number) => (
+                  <div className="card-type">
+                    <span>{pokemonTypes[id][idx].type.name}</span>
+                  </div>
+                ))
+              : null}
           </div>
         </div>
       );
@@ -79,9 +81,9 @@ const HomePage: FC = () => {
     );
   };
   useEffect(() => {
+    console.log("ENTRANDO");
     getPokemonsTypes();
-  }, []);
-  console.log(pokemonTypes);
+  }, [pokemonArray, setPokemonArray]);
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`)
@@ -92,7 +94,25 @@ const HomePage: FC = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [setPokemonArray]);
+  }, []);
+
+  // useEffect(() => {
+  //   fetch(`https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       var promise = new Promise((resolve: any) => {
+  //         setPokemonArray(data.results);
+  //         resolve();
+  //       });
+  //       promise.then(() => {
+  //         getPokemonsTypes();
+  //       });
+  //       // setPokemonArray(data.results);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [setPokemonArray]);
 
   return (
     <div className="App">
