@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+// import '../Types.css';
 
 const HomePage: FC = () => {
   const [pokemonArray, setPokemonArray] = useState<any[]>([]);
@@ -48,7 +49,7 @@ const HomePage: FC = () => {
               <p className="card-number">N.° {id + 1}</p>
             )}
             <h5 className="card-name">{pokemon['name']}</h5>
-            {pokemonTypes[id].map((types:any, idx:number) => (
+            {pokemonTypes[id].map((types: any, idx: number) => (
               <div className="card-type">
                 <span>{pokemonTypes[id][idx].type.name}</span>
               </div>
@@ -80,6 +81,7 @@ const HomePage: FC = () => {
   useEffect(() => {
     getPokemonsTypes();
   }, []);
+  console.log(pokemonTypes);
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`)
